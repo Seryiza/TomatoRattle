@@ -6,6 +6,8 @@ export default class PomodoroTimer {
   constructor({ storage, startState = 'work', events = {} }) {
     this.storage = storage;
     this.events = events;
+
+    // States: 'work', 'shortBreak', 'longBreak'
     this.state = startState;
 
     this.timer = new SimpleTimer({
@@ -40,26 +42,17 @@ export default class PomodoroTimer {
   }
 
   start() {
-    // TODO: Replace it to key-value object
-    switch (this.state) {
-      case 'work': {
-        this.timer.time = this.storage.get('pomodoroLength');
-        break;
-      }
-      case 'shortBreak': {
-        this.timer.time = this.storage.get('shortBreakLength');
-        break;
-      }
-      case 'longBreak': {
-        this.timer.time = this.storage.get('longBreakLength');
-        break;
-      }
-      default: {
-        console.error('Unknown PomodoroTimer state');
-        return;
-      }
+    const timesByPomodoroType = {
+      work: this.storage.get('pomodoroLength'),
+      shortBreak: this.storage.get('shortBreakLength'),
+      longBreak: this.storage.get('longBreakLength'),
+    };
+
+    if (!(this.state in timesByPomodoroType)) {
+      throw new Error(`${this.state} is incorrect pomodoro type`);
     }
 
+    this.timer.time = timesByPomodoroType[this.state];
     this.timer.start();
   }
 
