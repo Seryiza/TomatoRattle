@@ -1,11 +1,11 @@
 // TODO: Read about JSDoc and add comments to it.
 export default class SimpleTimer {
   constructor({
-    time, events = {}, stepDivider = 100,
+    time, events = {}, intervalStep = 1000,
   }) {
     this.time = time;
     this.remainigTime = time;
-    this.stepDivider = stepDivider;
+    this.intervalStep = intervalStep;
     this.events = events;
   }
 
@@ -13,23 +13,20 @@ export default class SimpleTimer {
     if (this.interval) {
       return;
     }
-
-    // TODO: Think about step. Ex., 15 min => step +/- ~15 sec. (it's too much)
-    const step = this.time / this.stepDivider;
     this.last = Date.now();
 
     this.interval = setInterval(() => {
       this.remainigTime -= (Date.now() - this.last);
-
       if (this.remainigTime <= 0) {
         this.stop();
         return;
       }
+
       if (this.events.onProgress) {
         this.events.onProgress(1 - this.remainigTime / this.time);
       }
       this.last = Date.now();
-    }, step);
+    }, this.intervalStep);
   }
 
   start() {
