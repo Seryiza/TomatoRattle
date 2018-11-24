@@ -14,8 +14,7 @@ export default class LayoutManager {
 
   goto(layoutName) {
     if (!(layoutName in this.layouts)) {
-      // TODO: Maybe throw an exception?
-      return;
+      throw new Error(`${layoutName} not found in this.layouts`);
     }
 
     if (this.events.onChange) {
