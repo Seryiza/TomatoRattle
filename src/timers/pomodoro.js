@@ -43,15 +43,15 @@ export default class PomodoroTimer {
     // TODO: Replace it to key-value object
     switch (this.state) {
       case 'work': {
-        this.timer.time = this.storage.get('pomodoroSize');
+        this.timer.time = this.storage.get('pomodoroLength');
         break;
       }
       case 'shortBreak': {
-        this.timer.time = this.storage.get('shortBreakSize');
+        this.timer.time = this.storage.get('shortBreakLength');
         break;
       }
       case 'longBreak': {
-        this.timer.time = this.storage.get('longBreakSize');
+        this.timer.time = this.storage.get('longBreakLength');
         break;
       }
       default: {

@@ -1,13 +1,16 @@
 import PomodoroApp from './app';
 
+const millisecondsInOneMinute = 60 * 1000;
+
 export default new PomodoroApp({
   elem: document.querySelector('#app'),
   defaultsPreferences: {
-    // TODO: Think about naming
-    pomodoroSize: 25 * 60 * 1000,
-    shortBreakSize: 5 * 60 * 1000,
-    longBreakSize: 30 * 60 * 1000,
+    pomodoroLength: 25 * millisecondsInOneMinute,
+    shortBreakLength: 5 * millisecondsInOneMinute,
+    longBreakLength: 30 * millisecondsInOneMinute,
+
     cyclesCount: 4,
+
     isSoundEnabled: true,
     isBrowserNotificationEnabled: true,
   },

@@ -79,9 +79,9 @@ export default (app) => {
 
   // List to read from/write to app.storage and inputs
   const inputNamesAndStorageKeys = [
-    { inputName: 'work-time', storageKey: 'pomodoroSize' },
-    { inputName: 'short-break-time', storageKey: 'shortBreakSize' },
-    { inputName: 'long-break-time', storageKey: 'longBreakSize' },
+    { inputName: 'work-time', storageKey: 'pomodoroLength' },
+    { inputName: 'short-break-time', storageKey: 'shortBreakLength' },
+    { inputName: 'long-break-time', storageKey: 'longBreakLength' },
     { inputName: 'cycles-count', storageKey: 'cyclesCount' },
   ];
 
