@@ -1,4 +1,7 @@
 ### Node ###
+# Parcel output files
+dist
+
 # Logs
 logs
 *.log
