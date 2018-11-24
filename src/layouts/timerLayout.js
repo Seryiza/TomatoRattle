@@ -45,7 +45,6 @@ export default (app) => {
   };
 
   // = Controller =
-  // TODO: Think about component-architecture
   state.timer = new PomodoroTimer({
     storage: app.storage,
     events: {
