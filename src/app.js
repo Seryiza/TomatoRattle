@@ -1,5 +1,6 @@
 import ObjectBasedStorage from './storages/objectBased';
 import LocalBasedStorage from './storages/localBased';
+import Notifications from './notifications';
 import LayoutManager from './layoutManager';
 import TimerLayout from './layouts/timerLayout';
 import SettingsLayout from './layouts/settingsLayout';
@@ -12,6 +13,10 @@ export default class PomodoroApp {
     const defaults = new ObjectBasedStorage(defaultsPreferences);
     const locals = new LocalBasedStorage(defaults);
     this.storage = locals;
+
+    // Create notifications
+    this.notifications = new Notifications(this.storage);
+    this.notifications.requestPermission();
 
     // Create layout manager
     this.layouts = new LayoutManager({

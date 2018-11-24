@@ -8,5 +8,7 @@ export default new PomodoroApp({
     shortBreakSize: 5 * 60 * 1000,
     longBreakSize: 30 * 60 * 1000,
     cyclesCount: 4,
+    isSoundEnabled: true,
+    isBrowserNotificationEnabled: true,
   },
 });
