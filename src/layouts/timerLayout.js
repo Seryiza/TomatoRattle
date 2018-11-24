@@ -39,6 +39,7 @@ export default (app) => {
   // = Model =
   const state = {
     stateName: 'start',
+    // TODO: Remember pomodoro type from last session
     pomodoroType: 'work',
     progress: 0,
     timer: null,
@@ -102,6 +103,7 @@ export default (app) => {
   watch(state, 'stateName', () => {
     statusElem.textContent = statusTexts[state.stateName];
 
+    // Show or hide stop pomodoro button
     switch (state.stateName) {
       case 'paused':
       case 'ticking': {
@@ -118,6 +120,7 @@ export default (app) => {
   // Update progress bar
   const textProgress = layout.querySelector('.pomodoro-progress-row');
   watch(state, 'progress', () => {
+    // TODO: Make it as cool SVG
     textProgress.textContent = `${Math.round(state.progress * 100)}%`;
   });
 
@@ -126,7 +129,7 @@ export default (app) => {
     layout.classList.remove(...Object.values(pomodoroCssClasses));
     layout.classList.add(pomodoroCssClasses[state.pomodoroType]);
   });
-  // First adding class on start
+  // Add class on layout start
   layout.classList.add(pomodoroCssClasses[state.pomodoroType]);
 
   return layout;
