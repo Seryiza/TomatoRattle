@@ -130,7 +130,7 @@ body {
   margin-bottom: 6px;
 }
 
-.settings-input {
+.settings-text-input {
   /* Reset default style of Chrome */
   /* TODO: use reset.css or normalize */
   outline: 0;
@@ -147,10 +147,36 @@ body {
   font-size: 26px;
 }
 
-.settings-input::-webkit-inner-spin-button,
-.settings-input::-webkit-outer-spin-button {
+.settings-text-input::-webkit-inner-spin-button,
+.settings-text-input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.settings-checkbox-input {
+  /* TODO: Style checkboxes */
+  outline: 0;
+  cursor: pointer;
+}
+
+.settings-select {
+  outline: 0;
+  cursor: pointer;
+
+  padding: 8px 4px;
+  width: 100%;
+
+  color: #E1F7E7;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #E1F7E7;
+
+  font-family: 'Lato';
+  font-size: 26px;
+}
+
+.settings-select-option {
+  background: #152034;
 }
 
 .save-button {
