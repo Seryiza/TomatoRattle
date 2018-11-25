@@ -7,7 +7,7 @@ import createLayout from './layout';
 const template = (`
 <div class="menu-row layout-row">
   <div class="stop-pomodoro-col menu-element">
-    <button class="hided icon button stop-pomodoro-button"></button>
+    <button class="icon button stop-pomodoro-button stop-pomodoro-button-hided"></button>
   </div>
 
   <div class="settings-col menu-element">
@@ -24,6 +24,18 @@ const statusTexts = {
   start: 'Start',
   ticking: 'Pause',
   paused: 'Paused',
+};
+
+const notificationsTexts = {
+  work: {
+    title: 'Pomodoro Ended!', body: 'Take a break',
+  },
+  shortBreak: {
+    title: 'Short Break Ended!', body: 'Go to work',
+  },
+  longBreak: {
+    title: 'Long Break Ended!', body: 'Go to work',
+  },
 };
 
 // CSS classes for .layout
@@ -53,9 +65,18 @@ export default (app) => {
         state.progress = progress;
       },
       onEnd: (pomodoroType) => {
+        console.log(pomodoroType, state.timer.completedWorkPomodoros);
+        const endedPomodoroType = state.pomodoroType;
+
         state.stateName = 'start';
         state.pomodoroType = pomodoroType;
         state.progress = 0;
+
+        const { title, body } = notificationsTexts[endedPomodoroType];
+        app.notifications.notify({
+          title,
+          body,
+        });
       },
     },
   });
@@ -98,6 +119,7 @@ export default (app) => {
 
   // = View =
   const stopPomodoroElem = layout.querySelector('.stop-pomodoro-button');
+  const stopPomodoroHidedClass = 'stop-pomodoro-button-hided';
 
   // Change status text (click to start / pause / continue) when stateName changes
   watch(state, 'stateName', () => {
@@ -107,11 +129,11 @@ export default (app) => {
     switch (state.stateName) {
       case 'paused':
       case 'ticking': {
-        stopPomodoroElem.classList.remove('hided');
+        stopPomodoroElem.classList.remove(stopPomodoroHidedClass);
         break;
       }
       default: {
-        stopPomodoroElem.classList.add('hided');
+        stopPomodoroElem.classList.add(stopPomodoroHidedClass);
         break;
       }
     }

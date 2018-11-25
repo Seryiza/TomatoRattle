@@ -30,10 +30,6 @@ body {
   transition: background 1s;
 }
 
-.hided {
-  display: none;
-}
-
 .work-pomodoro {
   background: #D95450;
 }
@@ -77,6 +73,10 @@ body {
   height: 44px;
   background: url("../icons/close.svg");
   background-size: 44px;
+}
+
+.stop-pomodoro-button-hided {
+  display: none;
 }
 
 .settings-button {
