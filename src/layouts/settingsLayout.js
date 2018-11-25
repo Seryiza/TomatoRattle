@@ -40,7 +40,7 @@ const template = (`
     </label>
     <label class="settings-label">
       <div class="settings-label-text">Sound Volume:</div>
-      todo
+      <input name="sound-volume" class="settings-range" type="range" min="0" max="1" step="0.05">
     </label>
     <label class="settings-label">
       <div class="settings-label-text">Are Browser Notifications Enabled?</div>
@@ -59,12 +59,6 @@ export default (app) => {
 
   // = Model =
   const state = {
-    // TODO: maybe is there better idea for this?
-    // TODO: export consts like 'pomodoroSize' in other (shared) file
-    pomodoroSize: null,
-    shortBreakSize: null,
-    longBreakSize: null,
-    cyclesCount: null,
     lastSaveTime: null,
   };
 
@@ -80,10 +74,12 @@ export default (app) => {
     'long-break-time': minutesFromMillisecondsInput,
     'cycles-count': numberInput,
     'are-sounds-enabled': booleanFromStringInput,
+    'sound-volume': numberInput,
     'are-browser-notifications-enabled': booleanFromStringInput,
   };
 
   // List to read from/write to app.storage and inputs
+  // TODO: export storageKey into data-*
   const inputNamesAndStorageKeys = [
     { inputName: 'work-time', storageKey: 'pomodoroLength' },
     { inputName: 'short-break-time', storageKey: 'shortBreakLength' },
@@ -91,6 +87,7 @@ export default (app) => {
     { inputName: 'cycles-count', storageKey: 'cyclesCount' },
     { inputName: 'are-sounds-enabled', storageKey: 'isSoundEnabled' },
     { inputName: 'sound-url', storageKey: 'soundURL' },
+    { inputName: 'sound-volume', storageKey: 'soundVolume' },
     { inputName: 'are-browser-notifications-enabled', storageKey: 'isBrowserNotificationEnabled' },
   ];
 
@@ -110,18 +107,20 @@ export default (app) => {
         app.storage.set(inputData.storageKey, formData[inputData.inputName]);
       });
 
+      app.notifications.update();
       state.lastSaveTime = Date.now();
     },
   });
 
   // = View =
   watch(state, 'lastSaveTime', () => {
-    // TODO: scroll up and show message on layout
+    window.scrollTo(0, 0);
     alert('Preferences saved!');
   });
 
+  // TODO: Play sound after it selected (to hear)
   // Append to 'sound-url' select all sounds
-  const appendAllSounds = (select, sounds) => {
+  const appendAllSounds = (select, sounds, activeSoundURL) => {
     const options = sounds.map((sound) => {
       const option = document.createElement('option');
       option.className = 'settings-select-option';
@@ -129,14 +128,17 @@ export default (app) => {
       option.value = sound.url;
       return option;
     });
-
     select.append(...options);
+
+    const selectedIndex = sounds.findIndex(sound => sound.url === activeSoundURL);
+    select.selectedIndex = selectedIndex;
   };
 
   const soundUrlSelectName = 'sound-url';
   appendAllSounds(
     layout.querySelector(`select[name="${soundUrlSelectName}"]`),
     allSounds,
+    app.storage.get('soundURL'),
   );
 
   return layout;

@@ -179,6 +179,11 @@ body {
   background: #152034;
 }
 
+.settings-range {
+  /* TODO: Style range */
+  width: 100%;
+}
+
 .save-button {
   display: block;
   margin: 0 auto;
