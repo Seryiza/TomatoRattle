@@ -17,7 +17,7 @@ export default class Notifications {
         Notification.requestPermission()
           .then((permission) => {
             if (permission !== 'granted') {
-              this.isBrowserNotificationEnable = false;
+              this.isBrowserNotificationEnabled = false;
             }
           });
       }
@@ -26,16 +26,23 @@ export default class Notifications {
 
   update() {
     // Compare as strings for localStorage (contains data as string :( )
-    const isSoundEnable = String(this.storage.get('isSoundEnabled')) === 'true';
-    const isBrowserNotificationEnable = String(this.storage.get('isBrowserNotificationEnabled')) === 'true';
+    const isSoundEnabled = String(this.storage.get('isSoundEnabled')) === 'true';
+    const isBrowserNotificationEnabled = String(this.storage.get('isBrowserNotificationEnabled')) === 'true';
+    const soundURL = this.storage.get('soundURL');
+    const soundVolume = parseFloat(this.storage.get('soundVolume'));
 
-    this.isSoundEnable = isSoundEnable;
-    this.isBrowserNotificationEnable = isBrowserNotificationEnable;
+    this.isSoundEnabled = isSoundEnabled;
+    this.isBrowserNotificationEnabled = isBrowserNotificationEnabled;
+    this.notificationSound = new Audio(soundURL);
+    this.notificationSound.volume = soundVolume;
   }
 
   notify(params) {
-    // TODO: Play sound
-    if (this.isBrowserNotificationEnable) {
+    if (this.isSoundEnabled) {
+      this.notificationSound.play();
+    }
+
+    if (this.isBrowserNotificationEnabled) {
       const { title, body } = params;
       const options = {
         body,
