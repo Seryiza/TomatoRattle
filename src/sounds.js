@@ -1,5 +1,5 @@
 import pianoNotificationURL from './sounds/352655__foolboymedia__piano-notification-5a.mp3';
-import mysteryPeakURL from './sounds/foolboymedia__mystery-peak2.wav';
+import mysteryPeakURL from './sounds/256098__foolboymedia__mystery-peak2.wav';
 import kaiandersensNotificationURL from './sounds/435677__kaiandersen__notification.mp3';
 import thebuildersNotification from './sounds/415762__thebuilder15__notification-correct.wav';
 import messengerNotification from './sounds/400697__daphne-in-wonderland__messenger-notification-sound-imitation.wav';
