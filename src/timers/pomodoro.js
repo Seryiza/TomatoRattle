@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import SimpleTimer from './simple';
 
 export default class PomodoroTimer {
@@ -9,6 +7,7 @@ export default class PomodoroTimer {
 
     // States: 'work', 'shortBreak', 'longBreak'
     this.state = startState;
+    this.completedWorkPomodoros = 0;
 
     this.timer = new SimpleTimer({
       time: 0,
@@ -21,16 +20,17 @@ export default class PomodoroTimer {
         onEnd: () => {
           switch (this.state) {
             case 'work': {
-              this.state = 'shortBreak';
+              this.completedWorkPomodoros -= 1;
+              this.state = (this.completedWorkPomodoros <= 0) ? 'longBreak' : 'shortBreak';
               break;
             }
-            case 'shortBreak': {
+            case 'shortBreak':
+            case 'longBreak': {
               this.state = 'work';
               break;
             }
-            // TODO: long break
             default: {
-              console.error(`Unknown state name: ${this.state}`);
+              throw new Error(`Unknown state name: ${this.state}`);
             }
           }
           if (this.events.onEnd) {
@@ -52,6 +52,9 @@ export default class PomodoroTimer {
       throw new Error(`${this.state} is incorrect pomodoro type`);
     }
 
+    if (this.completedWorkPomodoros <= 0) {
+      this.completedWorkPomodoros = this.storage.get('cyclesCount');
+    }
     this.timer.time = timesByPomodoroType[this.state];
     this.timer.start();
   }
