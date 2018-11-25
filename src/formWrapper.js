@@ -7,6 +7,20 @@ export default class FormWrapper {
       .reduce((acc, name) => ({ ...acc, [name]: inputs[name].start }), {});
   }
 
+  static getValuableField(elem) {
+    switch (elem.type) {
+      case 'number': {
+        return 'value';
+      }
+      case 'checkbox': {
+        return 'checked';
+      }
+      default: {
+        return 'value';
+      }
+    }
+  }
+
   constructor(formElement, inputs = {}, events = {}) {
     this.form = formElement;
     this.inputs = inputs;
@@ -28,9 +42,9 @@ export default class FormWrapper {
       event.preventDefault();
 
       Array.from(this.form.elements).forEach((elem) => {
-        // TODO: Read about radio / select. Maybe, there's an error.
         // TODO: Maybe rewrite this code? (without side effects)
-        this.setValue(elem.name, elem.value);
+        const field = FormWrapper.getValuableField(elem);
+        this.setValue(elem.name, elem[field]);
       });
 
       if (this.events.onSubmit) {
@@ -82,7 +96,10 @@ export default class FormWrapper {
   fillStartValues(startValues) {
     Object.keys(startValues).forEach((key) => {
       this.setStartValue(key, startValues[key]);
-      this.form.elements[key].value = this.getValue(key);
+
+      const elem = this.form.elements[key];
+      const field = FormWrapper.getValuableField(elem);
+      elem[field] = this.getValue(key);
     });
   }
 }
