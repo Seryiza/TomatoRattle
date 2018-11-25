@@ -1,3 +1,5 @@
+import iconURL from './icons/notification_icon.png';
+
 export default class Notifications {
   constructor(storage) {
     this.storage = storage;
@@ -23,8 +25,12 @@ export default class Notifications {
   }
 
   update() {
-    this.isSoundEnable = this.storage.get('isSoundEnabled');
-    this.isBrowserNotificationEnable = this.storage.get('isBrowserNotificationEnabled');
+    // Compare as strings for localStorage (contains data as string :( )
+    const isSoundEnable = String(this.storage.get('isSoundEnabled')) === 'true';
+    const isBrowserNotificationEnable = String(this.storage.get('isBrowserNotificationEnabled')) === 'true';
+
+    this.isSoundEnable = isSoundEnable;
+    this.isBrowserNotificationEnable = isBrowserNotificationEnable;
   }
 
   notify(params) {
@@ -33,6 +39,7 @@ export default class Notifications {
       const { title, body } = params;
       const options = {
         body,
+        icon: iconURL,
       };
 
       // eslint-disable-next-line no-unused-vars
