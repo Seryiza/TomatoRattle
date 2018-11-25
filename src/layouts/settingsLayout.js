@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { watch } from 'melanke-watchjs';
 import createLayout from './layout';
-import FormWrapper from '../formWrapper';
+import FormWrapper from '../formWrapper/formWrapper';
+import { numberInput, minutesFromMillisecondsInput, booleanFromStringInput } from '../formWrapper/inputs';
 import allSounds from '../sounds';
 
 const template = (`
@@ -73,20 +74,11 @@ export default (app) => {
   });
 
   // Form processing (using FormWrapper module)
-  const millisecondsInMinute = 60 * 1000;
-  const minutesFromMillisecondsInput = {
-    cast: x => Number(x),
-    input: x => x * millisecondsInMinute,
-    output: x => x / millisecondsInMinute,
-  };
-  const booleanFromStringInput = {
-    cast: x => String(x) === 'true',
-  };
   const settingsInputs = {
     'work-time': minutesFromMillisecondsInput,
     'short-break-time': minutesFromMillisecondsInput,
     'long-break-time': minutesFromMillisecondsInput,
-    'cycles-count': { cast: x => Number(x) },
+    'cycles-count': numberInput,
     'are-sounds-enabled': booleanFromStringInput,
     'are-browser-notifications-enabled': booleanFromStringInput,
   };
@@ -103,14 +95,17 @@ export default (app) => {
   ];
 
   const formElem = layout.querySelector('.settings-form');
+
   // eslint-disable-next-line no-unused-vars
   const formWrapper = new FormWrapper(formElem, settingsInputs, {
     onStart: (formData) => {
+      // Save to formData values from app.storage
       inputNamesAndStorageKeys.forEach((inputData) => {
         formData[inputData.inputName] = app.storage.get(inputData.storageKey);
       });
     },
     onSubmit: (formData) => {
+      // Save to app.storage values from formData
       inputNamesAndStorageKeys.forEach((inputData) => {
         app.storage.set(inputData.storageKey, formData[inputData.inputName]);
       });
