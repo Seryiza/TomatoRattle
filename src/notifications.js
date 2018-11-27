@@ -14,6 +14,7 @@ export default class Notifications {
         return;
       }
       default: {
+        // TODO: Fix Safari and refactoring it
         Notification.requestPermission()
           .then((permission) => {
             if (permission !== 'granted') {

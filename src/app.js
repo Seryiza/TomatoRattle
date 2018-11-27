@@ -1,9 +1,11 @@
 import ObjectBasedStorage from './storages/objectBased';
 import LocalBasedStorage from './storages/localBased';
 import Notifications from './notifications';
-import LayoutManager from './layoutManager';
-import TimerLayout from './layouts/timerLayout';
-import SettingsLayout from './layouts/settingsLayout';
+import allSounds from './sounds';
+import TimerLayout from './layouts/timer';
+import SettingsLayout from './layouts/settings';
+import ComponentSwitcher from './componentSwitcher';
+import { render } from './components/component';
 
 export default class PomodoroApp {
   constructor({ elem, defaultsPreferences = {} }) {
@@ -18,21 +20,30 @@ export default class PomodoroApp {
     this.notifications = new Notifications(this.storage);
     this.notifications.requestPermission();
 
-    // Create layout manager
-    this.layouts = new LayoutManager({
-      start: 'settings',
-      layouts: {
-        timer: TimerLayout(this),
-        settings: SettingsLayout(this),
-      },
-      events: {
-        onChange: (layoutManager, nextLayout) => {
-          // Clean current layout and render (append to this.elem) new layout
-          const component = layoutManager.layout(nextLayout);
-          this.elem.innerHTML = '';
-          this.elem.append(component);
-        },
+    // Create layouts
+    const componentSwitcher = new ComponentSwitcher({
+      init: {
+        start: 'timer',
       },
     });
+    const layoutsConfig = {
+      init: {
+        storage: this.storage,
+        notifications: this.notifications,
+        layouts: componentSwitcher,
+        sounds: allSounds,
+      },
+    };
+
+    const timerLayout = new TimerLayout(layoutsConfig);
+    const settingsLayout = new SettingsLayout(layoutsConfig);
+
+    // TODO: Think about deleting this hack
+    componentSwitcher.setComponents({
+      timer: timerLayout,
+      settings: settingsLayout,
+    });
+
+    render(componentSwitcher, this.elem);
   }
 }
