@@ -1,10 +1,10 @@
 import ObjectBasedStorage from './storages/objectBased';
 import LocalBasedStorage from './storages/localBased';
-import Notifications from './notifications';
+import Notifications from './utils/notifications';
 import allSounds from './sounds';
 import TimerLayout from './layouts/timer';
 import SettingsLayout from './layouts/settings';
-import ComponentSwitcher from './componentSwitcher';
+import ComponentSwitcher from './components/componentSwitcher';
 import { render } from './components/component';
 
 export default class PomodoroApp {

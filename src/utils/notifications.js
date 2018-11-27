@@ -1,4 +1,4 @@
-import iconURL from './icons/notification_icon.png';
+import iconURL from '../icons/notification_icon.png';
 
 export default class Notifications {
   constructor(storage) {

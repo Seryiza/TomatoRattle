@@ -1,5 +1,5 @@
 import { watch } from 'melanke-watchjs';
-import { Component, render } from './components/component';
+import { Component, render } from './component';
 
 export default class ComponentSwitcher extends Component {
   static template() {
