@@ -38,11 +38,11 @@ export default class SettingsForm extends Component {
   model(init) {
     this.state.storage = init.storage;
     this.state.sounds = init.sounds;
-
     this.state.activeSoundURL = this.state.storage.get('soundURL');
   }
 
   view() {
+    // Updating sounds list (select element)
     const soundsListElem = this.elem.querySelector('select[name="sound-url"]');
     watch(this.state, 'sounds', () => {
       const options = this.state.sounds.map((sound) => {
@@ -57,10 +57,10 @@ export default class SettingsForm extends Component {
       soundsListElem.append(...options);
     });
 
+    // Setting active element in the sounds list
     watch(this.state, 'activeSoundURL', () => {
       const predicate = sound => sound.url === this.state.activeSoundURL;
       const selectedIndex = this.state.sounds.findIndex(predicate);
-
       soundsListElem.selectedIndex = selectedIndex;
     });
   }
@@ -68,8 +68,7 @@ export default class SettingsForm extends Component {
   controller() {
     const formElem = this.elem.querySelector('.settings-form');
 
-    // eslint-disable-next-line no-unused-vars
-    const formWrapper = new FormWrapper(formElem, settingsInputs, {
+    this.formWrapper = new FormWrapper(formElem, settingsInputs, {
       onStart: (formData) => {
         // Save to formData values from the storage
         inputNamesAndStorageKeys.forEach((inputData) => {
@@ -85,6 +84,10 @@ export default class SettingsForm extends Component {
         this.emit('onSaved');
       },
     });
+  }
+
+  updateValues() {
+    this.formWrapper.updateValues();
   }
 
   static template() {

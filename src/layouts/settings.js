@@ -56,4 +56,9 @@ export default class SettingsLayout extends Component {
     const footer = new FooterComponent();
     this.addSubcomponent('footer', '.copyright-row', footer);
   }
+
+  // Event triggered from ComponentSwitcher
+  onComponentShow() {
+    this.subcomponents.form.updateValues();
+  }
 }
