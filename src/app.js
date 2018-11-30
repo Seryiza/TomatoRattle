@@ -21,11 +21,7 @@ export default class PomodoroApp {
     this.notifications.requestPermission();
 
     // Create layouts
-    const componentSwitcher = new ComponentSwitcher({
-      init: {
-        start: 'timer',
-      },
-    });
+    const componentSwitcher = new ComponentSwitcher();
     const layoutsConfig = {
       init: {
         storage: this.storage,
@@ -38,11 +34,10 @@ export default class PomodoroApp {
     const timerLayout = new TimerLayout(layoutsConfig);
     const settingsLayout = new SettingsLayout(layoutsConfig);
 
-    // TODO: Think about deleting this hack
-    componentSwitcher.setComponents({
-      timer: timerLayout,
-      settings: settingsLayout,
-    });
+    const startLayout = 'timer';
+    componentSwitcher.addComponent({ timer: timerLayout });
+    componentSwitcher.addComponent({ settings: settingsLayout });
+    componentSwitcher.changeTo(startLayout);
 
     render(componentSwitcher, this.elem);
   }

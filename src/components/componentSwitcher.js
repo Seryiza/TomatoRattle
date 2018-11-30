@@ -28,9 +28,11 @@ export default class ComponentSwitcher extends Component {
     });
   }
 
-  setComponents(components) {
-    this.state.components = components;
-    this.changeTo(this.state.start);
+  addComponent(component) {
+    this.state.components = {
+      ...this.state.components,
+      ...component,
+    };
   }
 
   get currentName() {
