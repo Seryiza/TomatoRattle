@@ -1,5 +1,8 @@
 import iconURL from '../icons/notification_icon.png';
 
+const getBool = (storage, key) => String(storage.get(key)) === 'true';
+const getFloat = (storage, key) => parseFloat(storage.get(key));
+
 export default class Notifications {
   constructor(storage) {
     this.storage = storage;
@@ -8,29 +11,45 @@ export default class Notifications {
   }
 
   requestPermission() {
-    switch (Notification.permission) {
-      case 'granted':
-      case 'denied': {
-        return;
-      }
-      default: {
-        // TODO: Fix Safari and refactoring it
-        Notification.requestPermission()
-          .then((permission) => {
-            if (permission !== 'granted') {
-              this.isBrowserNotificationEnabled = false;
-            }
-          });
+    // For older browsers
+    if (typeof Notification === 'undefined') {
+      this.setAndSaveBrowserNotifications(false);
+      return;
+    }
+
+    // Skip requesting if permission is set
+    if (Notification.permission === 'granted'
+     || Notification.permission === 'denied') {
+      return;
+    }
+
+    const notificationRequestCallback = (permission) => {
+      const isGranted = permission === 'granted';
+      this.setAndSaveBrowserNotifications(isGranted);
+    };
+
+    try {
+      Notification.requestPermission().then(notificationRequestCallback);
+    } catch (error) {
+      // For Safari
+      if (error instanceof TypeError) {
+        Notification.requestPermission(notificationRequestCallback);
+      } else {
+        throw error;
       }
     }
   }
 
+  setAndSaveBrowserNotifications(isEnabled) {
+    this.isBrowserNotificationEnabled = isEnabled;
+    this.storage.set('isBrowserNotificationEnabled', isEnabled);
+  }
+
   update() {
-    // Compare as strings for localStorage (contains data as string :( )
-    const isSoundEnabled = String(this.storage.get('isSoundEnabled')) === 'true';
-    const isBrowserNotificationEnabled = String(this.storage.get('isBrowserNotificationEnabled')) === 'true';
+    const isSoundEnabled = getBool(this.storage, 'isSoundEnabled');
+    const isBrowserNotificationEnabled = getBool(this.storage, 'isBrowserNotificationEnabled');
     const soundURL = this.storage.get('soundURL');
-    const soundVolume = parseFloat(this.storage.get('soundVolume'));
+    const soundVolume = getFloat(this.storage, 'soundVolume');
 
     this.isSoundEnabled = isSoundEnabled;
     this.isBrowserNotificationEnabled = isBrowserNotificationEnabled;
