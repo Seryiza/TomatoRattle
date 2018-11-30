@@ -53,5 +53,10 @@ export default class ComponentSwitcher extends Component {
 
     this.emit('onBeforeChange', componentName, this.state.current);
     this.state.current = componentName;
+
+    const currentComponent = this.getComponent();
+    if (currentComponent.onComponentShow) {
+      currentComponent.onComponentShow();
+    }
   }
 }
