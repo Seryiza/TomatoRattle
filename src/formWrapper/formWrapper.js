@@ -25,17 +25,7 @@ export default class FormWrapper {
     this.form = formElement;
     this.inputs = inputs;
     this.events = events;
-
-    // Fill this.values by start values from inputs[key].start
-    // and this.events.onStart (if exists)
-    this.values = FormWrapper.getStartValues(inputs);
-
-    if (this.events.onStart) {
-      const newValues = {};
-      this.events.onStart(newValues);
-      this.values = Object.assign(this.values, newValues);
-    }
-    this.fillStartValues(this.values);
+    this.updateValues();
 
     this.form.addEventListener('submit', (event) => {
       // Cancel sending a request
@@ -52,6 +42,18 @@ export default class FormWrapper {
         this.events.onSubmit(copy);
       }
     });
+  }
+
+  updateValues() {
+    // Fill this.values by start values from this.inputs[key].start
+    // and this.events.onStart (if exists)
+    this.values = FormWrapper.getStartValues(this.inputs);
+    if (this.events.onStart) {
+      const newValues = {};
+      this.events.onStart(newValues);
+      this.values = Object.assign(this.values, newValues);
+    }
+    this.fillValuesAsIs(this.values);
   }
 
   // TODO: Think about DRY
@@ -88,18 +90,18 @@ export default class FormWrapper {
     return fn(cast(this.values[name]));
   }
 
-  setStartValue(name, value) {
+  setValueAsIs(name, value) {
     const cast = this.getCastFn(name);
     this.values[name] = cast(value);
   }
 
-  fillStartValues(startValues) {
-    Object.keys(startValues).forEach((key) => {
-      this.setStartValue(key, startValues[key]);
+  fillValuesAsIs(values) {
+    Object.entries(values).forEach(([valueName, value]) => {
+      this.setValueAsIs(valueName, value);
 
-      const elem = this.form.elements[key];
+      const elem = this.form.elements[valueName];
       const field = FormWrapper.getValuableField(elem);
-      elem[field] = this.getValue(key);
+      elem[field] = this.getValue(valueName);
     });
   }
 }
