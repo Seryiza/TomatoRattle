@@ -57,6 +57,10 @@ export default class PomodoroTimer {
     }
     this.timer.time = timesByPomodoroType[this.state];
     this.timer.start();
+
+    if (this.events.onStart) {
+      this.events.onStart();
+    }
   }
 
   pause() {
