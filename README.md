@@ -23,4 +23,14 @@ $ npm run dev   # Starts Parcel in dev-mode
 $ npm run build # Parcel builds my timer
 ```
 
-Как только проект будет завершён, опубликую у себя на сайте.
+Доступна версия на [моём сайте](https://tomato.seryiza.xyz).
+
+## О звуках
+Указываю авторов звуков-помидорок, используемых мною:
+* [Piano Notification](https://freesound.org/people/FoolBoyMedia/sounds/352655/)
+* [Mystery Peak](https://freesound.org/people/FoolBoyMedia/sounds/256098/)
+* [Kaiandersen's Notification](https://freesound.org/people/KaiAndersen/sounds/435677/)
+* [Thebuilder15's Notification](https://freesound.org/people/TheBuilder15/sounds/415762/)
+* [Messenger Notification](https://freesound.org/people/Daphne_in_Wonderland/sounds/400697/)
+* [Unfa Ping](https://freesound.org/people/shinephoenixstormcrow/sounds/337050/)
+* [Xylo](https://freesound.org/people/Robinhood76/sounds/336713/)
