@@ -47,7 +47,7 @@ export default class SettingsForm extends Component {
     watch(this.state, 'sounds', () => {
       const options = this.state.sounds.map((sound) => {
         const option = document.createElement('option');
-        option.className = 'settings-select-option';
+        option.className = 'pomodoro-form__select-option';
         option.textContent = sound.name;
         option.value = sound.url;
         return option;
