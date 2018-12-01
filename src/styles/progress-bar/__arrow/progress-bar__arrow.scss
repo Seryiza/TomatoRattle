@@ -1,0 +1,34 @@
+$arrow-color: #E1F7E7;
+$arrow-angle: 45deg;
+
+.progress-bar__arrow {
+  position: relative;
+  width: 0px;
+  height: 30px;
+}
+
+.progress-bar__arrow::before,
+.progress-bar__arrow::after {
+  content: '';
+
+  display: inline-block;
+  width: 20px;
+  height: 7px;
+  border-radius: 7px;
+  
+  position: absolute;
+  right: 0;
+  // TODO: Make it as calulating
+  top: 11.50px;
+  
+  transform-origin: right center;
+  background: $arrow-color;
+}
+
+.progress-bar__arrow::before {
+  transform: translate(0, 2px) rotate($arrow-angle);
+}
+
+.progress-bar__arrow::after {
+  transform: translate(0, -2px) rotate(-$arrow-angle);
+}

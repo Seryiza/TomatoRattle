@@ -1,0 +1,10 @@
+.progress-bar__completed-line {
+  height: 0px;
+  min-width: 20px;
+
+  flex-grow: 1;
+  transition: flex-grow 0.5s;
+
+  border-top: 7px solid #E1F7E7;
+  border-top-right-radius: 7px;
+}

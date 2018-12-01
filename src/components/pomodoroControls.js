@@ -1,8 +1,9 @@
 import { watch } from 'melanke-watchjs';
 import { Component } from './component';
 import PomodoroTimer from '../timers/pomodoro';
+import ProgressBar from './progressBar';
 
-// Labels for pomodoro-status-row
+// Labels for pomodoro-controls__status
 const statusTexts = {
   beforeTheStart: 'Start',
   ticking: 'Pause',
@@ -20,7 +21,7 @@ export default class PomodoroControls extends Component {
     <div class="pomodoro-controls">
       <div class="pomodoro-controls__hint">click to</div>
       <div class="pomodoro-controls__status">Start</div>
-      <div class="pomodoro-controls__progress">0%</div>
+      <div class="pomodoro-controls__progress"></div>
     </div>
     `;
   }
@@ -29,17 +30,21 @@ export default class PomodoroControls extends Component {
     this.state.storage = init.storage;
     this.state.statusName = beforeTheStart;
     this.state.pomodoroType = init.startPomodoroType;
-    this.state.progress = 0;
+    this.state.progress = 1;
 
     this.state.pomodoro = new PomodoroTimer({
       storage: this.state.storage,
       startState: this.state.pomodoroType,
 
       events: {
+        onStart: () => {
+          this.state.progress = 0;
+        },
         onProgress: (progress) => {
           this.state.progress = progress;
         },
         onEnd: (nextPomodoroType) => {
+          this.state.progress = 1;
           this.state.statusName = beforeTheStart;
           this.state.pomodoroType = nextPomodoroType;
           this.emit('onEnd', nextPomodoroType);
@@ -75,6 +80,9 @@ export default class PomodoroControls extends Component {
         }
       }
     });
+
+    const progressBar = new ProgressBar();
+    this.addSubcomponent('progressBar', '.pomodoro-controls__progress', progressBar);
   }
 
   stop() {
@@ -87,9 +95,8 @@ export default class PomodoroControls extends Component {
       statusElem.textContent = statusTexts[this.state.statusName];
     });
 
-    const progressElem = this.elem.querySelector('.pomodoro-controls__progress');
     watch(this.state, 'progress', () => {
-      progressElem.textContent = `${this.state.progress}%`;
+      this.subcomponents.progressBar.setProgress(this.state.progress);
     });
   }
 }

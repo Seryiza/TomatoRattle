@@ -1,0 +1,9 @@
+@import './__completed-line/progress-bar__completed-line.scss';
+@import './__remaining-line/progress-bar__remaining-line.scss';
+@import './__arrow/progress-bar__arrow.scss';
+@import './__inner/progress-bar__inner.scss';
+@import './__bound/progress-bar__bound.scss';
+
+.progress-bar {
+  display: flex;
+}
