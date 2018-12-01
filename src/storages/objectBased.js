@@ -1,5 +1,3 @@
-// TODO: Write unit-tests
-
 export default class ObjectBasedStorage {
   constructor(object, defaultStorage) {
     this.storage = new Map(Object.entries(object));
