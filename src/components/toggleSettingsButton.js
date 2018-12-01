@@ -5,10 +5,10 @@ const layoutTransitions = {
   settings: 'timer',
 };
 
-export default class GotoSettingsButton extends Component {
+export default class ToggleSettingsButton extends Component {
   static template() {
     return `
-    <button class="icon button settings-button"></button>
+    <button class="button button_type_toggle-settings"></button>
     `;
   }
 

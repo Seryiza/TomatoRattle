@@ -6,9 +6,9 @@ import PomodoroControlsComponent from '../components/pomodoroControls';
 
 // CSS-classes of Pomodoro Types for '.layout'
 const pomodoroTypeClasses = {
-  work: 'work-pomodoro',
-  shortBreak: 'short-break-pomodoro',
-  longBreak: 'long-break-pomodoro',
+  work: 'timer-layout_pomodoro-type_work',
+  shortBreak: 'timer-layout_pomodoro-type_short-break',
+  longBreak: 'timer-layout_pomodoro-type_long-break',
 };
 
 // Texts for browser notifications
@@ -27,10 +27,10 @@ const notificationsTexts = {
 export default class TimerLayout extends Component {
   static template() {
     return `
-    <div class="layout">
-      <div class="menu-row layout-row"></div>
-      <div class="timer-control-row layout-row layout-row-max"></div>
-      <div class="copyright-row layout-row"></div>
+    <div class="timer-layout">
+      <div class="timer-layout__menu"></div>
+      <div class="timer-layout__controls"></div>
+      <div class="timer-layout__footer"></div>
     </div>
     `;
   }
@@ -68,7 +68,7 @@ export default class TimerLayout extends Component {
         },
       },
     });
-    this.addSubcomponent('controls', '.timer-control-row', timerControls);
+    this.addSubcomponent('controls', '.timer-layout__controls', timerControls);
 
     // Menu subcomponent
     const menu = new MenuComponent({
@@ -80,11 +80,11 @@ export default class TimerLayout extends Component {
         onStop: () => this.subcomponents.controls.stop(),
       },
     });
-    this.addSubcomponent('menu', '.menu-row', menu);
+    this.addSubcomponent('menu', '.timer-layout__menu', menu);
 
     // Footer subcomponent
     const footer = new FooterComponent();
-    this.addSubcomponent('footer', '.copyright-row', footer);
+    this.addSubcomponent('footer', '.timer-layout__footer', footer);
   }
 
   view() {

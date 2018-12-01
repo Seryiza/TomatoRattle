@@ -10,7 +10,7 @@ export default class StopPomodoroButton extends Component {
 
   static template() {
     return `
-    <button class="icon button stop-pomodoro-button stop-pomodoro-button-hided"></button>
+    <button class="button button_type_stop-pomodoro button_hided"></button>
     `;
   }
 
@@ -34,7 +34,7 @@ export default class StopPomodoroButton extends Component {
 
   view() {
     const stopButton = this.elem;
-    const hidedClass = 'stop-pomodoro-button-hided';
+    const hidedClass = 'button_hided';
 
     watch(this.state, 'isVisible', () => {
       const classes = stopButton.classList;

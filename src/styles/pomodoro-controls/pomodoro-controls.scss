@@ -1,0 +1,10 @@
+@import './__status/pomodoro-controls__status.scss';
+
+.pomodoro-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  cursor: pointer;
+  user-select: none;
+}

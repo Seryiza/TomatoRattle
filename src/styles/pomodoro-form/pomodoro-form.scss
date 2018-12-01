@@ -1,0 +1,16 @@
+@import './__checkbox-input/pomodoro-form__checkbox-input.scss';
+@import './__header/pomodoro-form__header.scss';
+@import './__label/pomodoro-form__label.scss';
+@import './__label-text/pomodoro-form__label-text.scss';
+@import './__range-input/pomodoro-form__range-input.scss';
+@import './__save-button/pomodoro-form__save-button.scss';
+@import './__select-input/pomodoro-form__select-input.scss';
+@import './__select-option/pomodoro-form__select-option.scss';
+@import './__text-input/pomodoro-form__text-input.scss';
+
+.pomodoro-form {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: left;
+}

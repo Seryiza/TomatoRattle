@@ -1,0 +1,15 @@
+// External styles
+@import '../../node_modules/normalize.css/normalize.css';
+
+// Pomodoro styles
+// Layouts:
+@import './timer-layout/timer-layout.scss';
+@import './settings-layout/settings-layout.scss';
+
+// Components:
+@import './button/button.scss';
+@import './footer/footer.scss';
+@import './layout-switcher/layout-switcher.scss';
+@import './menu/menu.scss';
+@import './pomodoro-controls/pomodoro-controls.scss';
+@import './pomodoro-form/pomodoro-form.scss';

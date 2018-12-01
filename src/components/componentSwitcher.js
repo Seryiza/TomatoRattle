@@ -3,7 +3,7 @@ import { Component, render } from './component';
 
 export default class ComponentSwitcher extends Component {
   static template() {
-    return '<div class="layouts"></div>';
+    return '<div class="layout-switcher"></div>';
   }
 
   static defaults() {

@@ -1,0 +1,11 @@
+@import './_hided/button_hided.scss';
+@import './_type_stop-pomodoro/button_type_stop-pomodoro.scss';
+@import './_type_toggle-settings/button_type_toggle-settings.scss';
+
+.button {
+  cursor: pointer;
+
+  // Off user agent borders
+  outline: 0;
+  border: 0;
+}

@@ -1,0 +1,19 @@
+$text-color: #E1F7E7;
+$font-family: 'Lato';
+$bottom-border-color: $text-color;
+
+.pomodoro-form__select-input {
+  outline: 0;
+  cursor: pointer;
+
+  padding: 8px 4px;
+  width: 100%;
+
+  color: $text-color;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid $bottom-border-color;
+
+  font-family: $font-family;
+  font-size: 26px;
+}

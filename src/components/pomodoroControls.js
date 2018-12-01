@@ -14,13 +14,13 @@ const beforeTheStart = 'beforeTheStart';
 const ticking = 'ticking';
 const paused = 'paused';
 
-export default class StartPomodoro extends Component {
+export default class PomodoroControls extends Component {
   static template() {
     return `
     <div class="pomodoro-controls">
-      <div>click to</div>
-      <div class="timer-control-status">Start</div>
-      <div class="timer-control-progress">0%</div>
+      <div class="pomodoro-controls__hint">click to</div>
+      <div class="pomodoro-controls__status">Start</div>
+      <div class="pomodoro-controls__progress">0%</div>
     </div>
     `;
   }
@@ -82,12 +82,12 @@ export default class StartPomodoro extends Component {
   }
 
   view() {
-    const statusElem = this.elem.querySelector('.timer-control-status');
+    const statusElem = this.elem.querySelector('.pomodoro-controls__status');
     watch(this.state, 'statusName', () => {
       statusElem.textContent = statusTexts[this.state.statusName];
     });
 
-    const progressElem = this.elem.querySelector('.timer-control-progress');
+    const progressElem = this.elem.querySelector('.pomodoro-controls__progress');
     watch(this.state, 'progress', () => {
       progressElem.textContent = `${this.state.progress}%`;
     });

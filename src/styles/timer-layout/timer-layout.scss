@@ -1,0 +1,18 @@
+@import './_pomodoro-type/timer-layout_pomodoro-type_long-break.scss';
+@import './_pomodoro-type/timer-layout_pomodoro-type_short-break.scss';
+@import './_pomodoro-type/timer-layout_pomodoro-type_work.scss';
+
+@import './__controls/timer-layout__controls.scss';
+
+.timer-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  padding: 30px;
+  min-height: 100vh;
+
+  transition: background 1s;
+}

@@ -6,10 +6,10 @@ import FooterComponent from '../components/footer';
 export default class SettingsLayout extends Component {
   static template() {
     return `
-    <div class="layout settings-layout">
-      <div class="menu-row layout-row"></div>
-      <div class="settings-row layout-row layout-row-max"></div>
-      <div class="copyright-row layout-row"></div>
+    <div class="settings-layout">
+      <div class="settings-layout__menu"></div>
+      <div class="settings-layout__form"></div>
+      <div class="settings-layout__footer"></div>
     </div>
     `;
   }
@@ -38,7 +38,7 @@ export default class SettingsLayout extends Component {
         },
       },
     });
-    this.addSubcomponent('form', '.settings-row', form);
+    this.addSubcomponent('form', '.settings-layout__form', form);
 
     // Menu subcomponent
     const menu = new MenuComponent({
@@ -50,11 +50,11 @@ export default class SettingsLayout extends Component {
         onStop: () => this.subcomponents.controls.stop(),
       },
     });
-    this.addSubcomponent('menu', '.menu-row', menu);
+    this.addSubcomponent('menu', '.settings-layout__menu', menu);
 
     // Footer subcomponent
     const footer = new FooterComponent();
-    this.addSubcomponent('footer', '.copyright-row', footer);
+    this.addSubcomponent('footer', '.settings-layout__footer', footer);
   }
 
   // Event triggered from ComponentSwitcher

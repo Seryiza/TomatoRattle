@@ -66,7 +66,7 @@ export default class SettingsForm extends Component {
   }
 
   controller() {
-    const formElem = this.elem.querySelector('.settings-form');
+    const formElem = this.elem.querySelector('.settings-form__elements');
 
     this.formWrapper = new FormWrapper(formElem, settingsInputs, {
       onStart: (formData) => {
@@ -92,43 +92,43 @@ export default class SettingsForm extends Component {
 
   static template() {
     return `
-    <div>
-      <h2 class="settings-header">Settings</h2>
-      <form class="settings-form">
-        <label class="settings-label">
-          <div class="settings-label-text">Work Time (min.):</div>
-          <input name="work-time" class="settings-text-input work-time-input" type="number" min="1">
+    <div class="pomodoro-form">
+      <h2 class="pomodoro-form__header">Settings</h2>
+      <form class="settings-form__elements">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Work Time (min.):</div>
+          <input name="work-time" class="pomodoro-form__text-input" type="number" min="1">
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Short Break Time (min.):</div>
-          <input name="short-break-time" class="settings-text-input short-break-time-input" type="number" min="1">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Short Break Time (min.):</div>
+          <input name="short-break-time" class="pomodoro-form__text-input" type="number" min="1">
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Long Break Time (min.):</div>
-          <input name="long-break-time" class="settings-text-input long-break-time-input" type="number" min="1">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Long Break Time (min.):</div>
+          <input name="long-break-time" class="pomodoro-form__text-input" type="number" min="1">
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Work Pomodoros Before Long Break:</div>
-          <input name="cycles-count" class="settings-text-input cycles-before-long-break-input" type="number" min="1">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Work Pomodoros Before Long Break:</div>
+          <input name="cycles-count" class="pomodoro-form__text-input" type="number" min="1">
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Are Sounds Enabled?</div>
-          <input name="are-sounds-enabled" class="settings-checkbox-input" type="checkbox">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Are Sounds Enabled?</div>
+          <input name="are-sounds-enabled" class="pomodoro-form__checkbox-input" type="checkbox">
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Sounds:</div>
-          <select name="sound-url" class="settings-select"></select>
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Sounds:</div>
+          <select name="sound-url" class="pomodoro-form__select-input"></select>
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Sound Volume:</div>
-          <input name="sound-volume" class="settings-range" type="range" min="0" max="1" step="0.05">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Sound Volume:</div>
+          <input name="sound-volume" class="pomodoro-form__range-input" type="range" min="0" max="1" step="0.05">
         </label>
-        <label class="settings-label">
-          <div class="settings-label-text">Are Browser Notifications Enabled?</div>
-          <input name="are-browser-notifications-enabled" class="settings-checkbox-input" type="checkbox">
+        <label class="pomodoro-form__label">
+          <div class="pomodoro-form__label-text">Are Browser Notifications Enabled?</div>
+          <input name="are-browser-notifications-enabled" class="pomodoro-form__checkbox" type="checkbox">
         </label>
 
-        <button name="save-button" class="button save-button">Save</button>
+        <button name="save-button" class="pomodoro-form__save-button">Save</button>
       </form>
     </div>
     `;

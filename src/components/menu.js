@@ -1,14 +1,14 @@
 // import { watch } from 'melanke-watchjs';
 import { Component } from './component';
-import StopPomodoroComponent from './stopPomodoro';
-import GotoSettingsComponent from './gotoSettingsButton';
+import StopPomodoroComponent from './stopPomodoroButton';
+import ToggleSettingsButton from './toggleSettingsButton';
 
 export default class Menu extends Component {
   static template() {
     return `
-    <div class="menu-flex">
-      <div class="stop-pomodoro-col menu-element"></div>
-      <div class="settings-col menu-element"></div>
+    <div class="menu">
+      <div class="menu__stop-pomodoro"></div>
+      <div class="menu__toggle-settings"></div>
     </div>
     `;
   }
@@ -23,9 +23,9 @@ export default class Menu extends Component {
         onStop: () => this.emit('onStop'),
       },
     });
-    this.addSubcomponent('stopPomodoroButton', '.stop-pomodoro-col', stopPomodoroButton);
+    this.addSubcomponent('stopPomodoroButton', '.menu__stop-pomodoro', stopPomodoroButton);
 
-    const settingsButton = new GotoSettingsComponent({
+    const settingsButton = new ToggleSettingsButton({
       init: {
         currentLayoutName: this.state.currentLayoutName,
       },
@@ -33,7 +33,7 @@ export default class Menu extends Component {
         onGotoSettings: nextLayout => this.emit('onGotoSettings', nextLayout),
       },
     });
-    this.addSubcomponent('settingsButton', '.settings-col', settingsButton);
+    this.addSubcomponent('settingsButton', '.menu__toggle-settings', settingsButton);
   }
 
   showStopPomodoro() {

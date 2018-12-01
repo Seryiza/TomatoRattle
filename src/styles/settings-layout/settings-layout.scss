@@ -1,0 +1,17 @@
+@import './__form/settings-layout__form.scss';
+
+$layout-background: #152034;
+
+.settings-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  padding: 30px;
+  min-height: 100vh;
+
+  background: $layout-background;
+  transition: background 1s;
+}
