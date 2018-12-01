@@ -13,6 +13,7 @@
     "@babel/polyfill": "^7.0.0",
     "install": "^0.12.2",
     "melanke-watchjs": "^1.5.0",
+    "normalize.css": "^8.0.1",
     "npm": "^6.4.1"
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "parcel": "^1.10.3"
+    "parcel": "^1.10.3",
+    "sass": "^1.15.1"
   }
 }
