@@ -23,8 +23,6 @@ $ npm run dev   # Starts Parcel in dev-mode
 $ npm run build # Parcel builds my timer
 ```
 
-Доступна версия на [моём сайте](https://tomato.seryiza.xyz).
-
 ## О звуках
 Указываю авторов звуков-помидорок, используемых мною:
 * [Piano Notification](https://freesound.org/people/FoolBoyMedia/sounds/352655/)
